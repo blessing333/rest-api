@@ -1,0 +1,5 @@
+CREATE TABLE categories
+(
+    id   BINARY(16) PRIMARY KEY,
+    name VARCHAR(20) NOT NULL UNIQUE
+);
