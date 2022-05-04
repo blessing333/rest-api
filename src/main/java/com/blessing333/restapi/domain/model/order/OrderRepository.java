@@ -9,4 +9,6 @@ public interface OrderRepository {
 
     void delete(UUID id);
 
+    void deleteAll();
+
 }

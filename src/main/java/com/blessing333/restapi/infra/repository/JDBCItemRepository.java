@@ -28,6 +28,7 @@ public class JDBCItemRepository implements ItemRepository {
     private static final String INSERT_SQL = "INSERT INTO items(id, category_id, name,description, price, quantity, created_at) VALUES (:id, :category_id, :name, :description, :price, :quantity, :created_at)";
     private static final String FIND_ALL_SQL = "SELECT * FROM items";
     private static final String FIND_BY_ID_SQL = "SELECT * FROM items WHERE id = :id";
+    private static final String DELETE_ALL_SQL = "DELETE FROM items";
     private final NamedParameterJdbcTemplate jdbcTemplate;
     private final ItemRowMapper rowMapper = new ItemRowMapper();
 
@@ -50,6 +51,11 @@ public class JDBCItemRepository implements ItemRepository {
         } catch (EmptyResultDataAccessException e) {
             throw new ItemNotFoundException(e);
         }
+    }
+
+    @Override
+    public void deleteAll() {
+        jdbcTemplate.update(DELETE_ALL_SQL,Collections.emptyMap());
     }
 
     private Map<String, Object> toParamMap(Item item) {

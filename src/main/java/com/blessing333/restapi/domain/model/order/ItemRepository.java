@@ -9,4 +9,6 @@ public interface ItemRepository {
     Item findById(UUID id);
 
     List<Item> findAll();
+
+    void deleteAll();
 }

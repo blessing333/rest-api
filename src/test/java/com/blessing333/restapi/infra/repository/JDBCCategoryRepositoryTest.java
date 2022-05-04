@@ -2,6 +2,7 @@ package com.blessing333.restapi.infra.repository;
 
 import com.blessing333.restapi.domain.model.category.Category;
 import com.blessing333.restapi.domain.model.category.CategoryNotFoundException;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,11 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class JDBCCategoryRepositoryTest {
     @Autowired
     private JDBCCategoryRepository repository;
+
+    @AfterEach
+    void deleteAllData(){
+        repository.deleteAll();
+    }
 
     @DisplayName("ID로 카테고리 정보를 조회할 수 있어야한다")
     @Test

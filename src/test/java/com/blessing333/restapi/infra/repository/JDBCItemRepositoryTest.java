@@ -5,10 +5,7 @@ import com.blessing333.restapi.domain.model.category.CategoryRepository;
 import com.blessing333.restapi.domain.model.order.Item;
 import com.blessing333.restapi.domain.model.order.ItemNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -34,6 +31,11 @@ class JDBCItemRepositoryTest {
     void addDefaultCategory() {
         Category category = new Category(categoryId, "default-category");
         categoryRepository.save(category);
+    }
+
+    @AfterEach
+    void deleteAllData(){
+        repository.deleteAll();
     }
 
     @DisplayName("새로운 Item을 저장할 수 있어야한다")

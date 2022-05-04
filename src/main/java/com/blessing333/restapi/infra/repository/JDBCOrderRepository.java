@@ -26,6 +26,7 @@ public class JDBCOrderRepository implements OrderRepository {
 
     private static final String INSERT_SQL = "INSERT INTO orders(id, buyer_id, order_status, order_date)VALUES (:id, :buyer_id, :order_status, :order_date)";
     private static final String DELETE_SQL = "DELETE FROM orders WHERE id = :id";
+    private static final String DELETE_ALL_SQL = "DELETE from orders";
     private static final String FIND_BY_ID_SQL = "SELECT * FROM orders WHERE id = :id";
     private final NamedParameterJdbcTemplate jdbcTemplate;
     private final OrderRowMapper rowMapper = new OrderRowMapper();
@@ -51,6 +52,11 @@ public class JDBCOrderRepository implements OrderRepository {
         int affectedRowCount = jdbcTemplate.update(DELETE_SQL,Collections.singletonMap(ID_COLUMN,id));
         if(affectedRowCount != 1)
             throw new OrderDeleteFailException();
+    }
+
+    @Override
+    public void deleteAll() {
+        jdbcTemplate.update(DELETE_ALL_SQL,Collections.emptyMap());
     }
 
     private Map<String, Object> toParamMap(Order order) {

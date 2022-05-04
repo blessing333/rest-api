@@ -49,6 +49,11 @@ class JDBCOrderItemRepositoryTest {
         orderRepository.save(order);
     }
 
+    @AfterEach
+    void deleteAllData(){
+        orderItemRepository.deleteAll();
+    }
+
     @DisplayName("새로운 Orderitem을 추가할 수 있어야한다")
     @Test
     void saveOrderItem() {

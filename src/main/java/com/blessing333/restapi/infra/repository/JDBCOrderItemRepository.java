@@ -24,6 +24,7 @@ public class JDBCOrderItemRepository implements OrderItemRepository {
     private static final String INSERT_SQL = "INSERT INTO order_items(id, order_id, item_id, order_price, item_count) " +
                                              "VALUES (:id, :order_id, :item_id, :order_price, :item_count)";
     private static final String FIND_BY_ORDER_ID_SQL = "SELECT * FROM order_items WHERE order_id = :order_id";
+    private static final String DELETE_ALL_SQL = "delete from order_items";
     private final NamedParameterJdbcTemplate jdbcTemplate;
     private final OrderItemRowMapper rowMapper = new OrderItemRowMapper();
 
@@ -37,6 +38,11 @@ public class JDBCOrderItemRepository implements OrderItemRepository {
     public List<OrderItem> findByOrder(UUID orderId) {
         Map<String, byte[]> param = Collections.singletonMap(ORDER_ID_COLUMN, UUIDUtils.toBinary(orderId));
         return jdbcTemplate.query(FIND_BY_ORDER_ID_SQL, param, rowMapper);
+    }
+
+    @Override
+    public void deleteAll() {
+        jdbcTemplate.update(DELETE_ALL_SQL,Collections.emptyMap());
     }
 
     private Map<String, Object> toParamMap(OrderItem orderItem) {

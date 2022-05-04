@@ -5,5 +5,8 @@ import java.util.UUID;
 
 public interface OrderItemRepository {
     UUID save(OrderItem orderItem);
+
     List<OrderItem> findByOrder(UUID orderId);
+
+    void deleteAll();
 }

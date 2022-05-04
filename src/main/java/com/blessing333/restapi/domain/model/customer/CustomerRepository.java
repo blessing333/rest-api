@@ -4,4 +4,6 @@ import java.util.UUID;
 
 public interface CustomerRepository {
     UUID save(Customer customer);
+
+    void deleteAll();
 }

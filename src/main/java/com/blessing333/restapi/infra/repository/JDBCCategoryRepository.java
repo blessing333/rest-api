@@ -56,6 +56,11 @@ public class JDBCCategoryRepository implements CategoryRepository {
         jdbcTemplate.update(DELETE_SQL, param);
     }
 
+    @Override
+    public void deleteAll(){
+        jdbcTemplate.update("DELETE FROM categories",Collections.emptyMap());
+    }
+
     private Map<String, Object> toParamMap(Category category) {
         Map<String, Object> map = new HashMap<>();
         map.put(ID_COLUMN, UUIDUtils.toBinary(category.getId()));
