@@ -11,6 +11,6 @@ import java.util.UUID;
 public class Order {
     private final UUID id;
     private final UUID buyerId;
-    private final LocalDateTime orderDate;
     private OrderStatus orderStatus;
+    private final LocalDateTime orderDate;
 }

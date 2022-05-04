@@ -10,8 +10,8 @@ import java.util.UUID;
 @Getter
 public class Customer {
     private final UUID id;
-    private final LocalDateTime createAt;
     private String name;
     private String email;
     private String address;
+    private final LocalDateTime createAt;
 }

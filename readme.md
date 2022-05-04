@@ -15,3 +15,4 @@ DB
 2. 프론트단에서 주문을 요청할 때 Item 아이디만 보내줄지 아니면 모든 필드를 다 풀어서 전송할지
 3. 자바의 시리얼라이즈는 언제 사용하는가
 4. Optional vs UncheckedException
+5. Order, OrderItem, Item
