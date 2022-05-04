@@ -25,7 +25,6 @@ public class JDBCCategoryRepository implements CategoryRepository {
     private static final String INSERT_SQL = "INSERT INTO categories(id, name) VALUES (:id, :name)";
     private static final String UPDATE_SQL = "UPDATE categories SET name =:name WHERE id =:id";
     private static final String FIND_BY_ID_SQL = "SELECT * FROM categories WHERE id = :id";
-    private static final String DELETE_ALL_SQL = "DELETE FROM categories";
     private static final String DELETE_SQL = "DELETE FROM categories WHERE id = :id";
     private final NamedParameterJdbcTemplate jdbcTemplate;
     private final CategoryRowMapper rowMapper = new CategoryRowMapper();
