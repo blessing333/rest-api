@@ -5,7 +5,10 @@ import com.blessing333.restapi.domain.model.category.CategoryRepository;
 import com.blessing333.restapi.domain.model.order.Item;
 import com.blessing333.restapi.domain.model.order.ItemNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -19,7 +22,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
 @RequiredArgsConstructor
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class JDBCItemRepositoryTest {
     private final UUID categoryId = UUID.randomUUID();
     @Autowired
@@ -27,7 +29,7 @@ class JDBCItemRepositoryTest {
     @Autowired
     private CategoryRepository categoryRepository;
 
-    @BeforeAll
+    @BeforeEach
     void addDefaultCategory() {
         Category category = new Category(categoryId, "default-category");
         categoryRepository.save(category);
@@ -36,6 +38,7 @@ class JDBCItemRepositoryTest {
     @AfterEach
     void deleteAllData(){
         repository.deleteAll();
+        categoryRepository.deleteAll();
     }
 
     @DisplayName("새로운 Item을 저장할 수 있어야한다")

@@ -7,7 +7,10 @@ import com.blessing333.restapi.domain.model.order.OrderDeleteFailException;
 import com.blessing333.restapi.domain.model.order.OrderNotFoundException;
 import com.blessing333.restapi.domain.model.order.OrderStatus;
 import lombok.RequiredArgsConstructor;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -19,7 +22,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
 @RequiredArgsConstructor
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class JDBCOrderRepositoryTest {
     private static final UUID customerId = UUID.randomUUID();
     @Autowired
@@ -27,20 +29,19 @@ class JDBCOrderRepositoryTest {
     @Autowired
     private CustomerRepository customerRepository;
 
-    @BeforeAll
+    @BeforeEach
     void initCustomer() {
-
         String name = "user";
         String email = "test@naver.com";
         String address = "경기도 성남시 분당구";
         Customer customer = new Customer(customerId, name, email, address, LocalDateTime.now());
-
         customerRepository.save(customer);
     }
 
     @AfterEach
     void deleteAllData(){
         orderRepository.deleteAll();
+        customerRepository.deleteAll();
     }
 
     @DisplayName("주문정보를 저장할 수 있어야한다")

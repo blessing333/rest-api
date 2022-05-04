@@ -1,8 +1,5 @@
 package com.blessing333.restapi.infra.repository;
 
-import com.blessing333.restapi.domain.model.category.Category;
-import com.blessing333.restapi.domain.model.customer.Customer;
-import com.blessing333.restapi.domain.model.order.Item;
 import com.blessing333.restapi.domain.model.order.Order;
 import com.blessing333.restapi.domain.model.order.OrderItem;
 import com.blessing333.restapi.domain.model.order.OrderStatus;
@@ -17,7 +14,6 @@ import java.util.UUID;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class JDBCOrderItemRepositoryTest {
     private final static UUID itemId = UUID.randomUUID();
     private final static UUID orderId = UUID.randomUUID();
@@ -33,25 +29,17 @@ class JDBCOrderItemRepositoryTest {
     @Autowired
     JDBCCategoryRepository categoryRepository;
 
-    @BeforeAll
+    @Autowired
+    TestDataManager dataManager;
+
+    @BeforeEach
     void initData() {
-        UUID categoryId = UUID.randomUUID();
-        Category category = new Category(categoryId, "categoryName");
-        categoryRepository.save(category);
-
-        Item item = Item.createNewItem(itemId, categoryId, "item", "desc", 100000, 3000, LocalDateTime.now());
-        itemRepository.save(item);
-
-        Customer customer = new Customer(customerId, "username", "useremai", "useraddress", LocalDateTime.now());
-        customerRepository.save(customer);
-
-        Order order = new Order(orderId, customerId, OrderStatus.ACCEPTED, LocalDateTime.now());
-        orderRepository.save(order);
+        dataManager.createDefaultData(UUID.randomUUID(),customerId,orderId,itemId,UUID.randomUUID());
     }
 
     @AfterEach
     void deleteAllData(){
-        orderItemRepository.deleteAll();
+        dataManager.deleteAllData();
     }
 
     @DisplayName("새로운 Orderitem을 추가할 수 있어야한다")
@@ -78,7 +66,7 @@ class JDBCOrderItemRepositoryTest {
         orderItemRepository.save(third);
 
         List<OrderItem> found = orderItemRepository.findByOrder(orderId);
-        assertThat(found).hasSize(3).contains(first,second,third);
+        assertThat(found).hasSize(4).contains(first,second,third);
     }
 
     @DisplayName("OrderItem이 참조하는 Order가 삭제될 경우 OrderItem도 같이 삭제된다")

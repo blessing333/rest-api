@@ -5,17 +5,16 @@ import com.blessing333.restapi.domain.application.commands.CreateOrderCommand;
 import com.blessing333.restapi.domain.application.commands.OrderItemCommand;
 import com.blessing333.restapi.domain.model.order.ItemNotFoundException;
 import com.blessing333.restapi.infra.repository.TestDataManager;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
 
 @SpringBootTest
+@Transactional
 class OrderServiceImplTest {
     @Autowired
     private OrderService orderService;
@@ -30,6 +29,11 @@ class OrderServiceImplTest {
     @BeforeEach
     void createDefaultData(){
         testDataManager.createDefaultData(categoryId,customerId,orderId,itemId,orderItemId);
+    }
+
+    @AfterEach
+    void deleteAllData(){
+        testDataManager.deleteAllData();
     }
 
     @DisplayName("존재하지 않는 아이템에 대해 주문을 시도하면 ItemNotFoundException을 발생시킨다.")

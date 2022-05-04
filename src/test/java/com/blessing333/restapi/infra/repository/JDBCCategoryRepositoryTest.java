@@ -20,7 +20,7 @@ class JDBCCategoryRepositoryTest {
     private JDBCCategoryRepository repository;
 
     @AfterEach
-    void deleteAllData(){
+    void deleteAllCategory(){
         repository.deleteAll();
     }
 
@@ -84,6 +84,6 @@ class JDBCCategoryRepositoryTest {
 
     private Category createCategory() {
         UUID id = UUID.randomUUID();
-        return new Category(id, "test");
+        return new Category(id, "testcategory");
     }
 }
