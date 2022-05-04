@@ -25,7 +25,7 @@ public class JDBCItemRepository implements ItemRepository {
     private static final String PRICE_COLUMN = "price";
     private static final String QUANTITY_COLUMN = "quantity";
     private static final String CREATE_DATE_COLUMN = "created_at";
-    private static final String INSERT_SQL = "INSERT INTO items(id, category_id, name,description, price, quantity, created_at) VALUES (:id, :category_id, :name, :description, :price, :quantity, :created_at)";
+    private static final String INSERT_SQL = "INSERT INTO items(id, category_id, name, description, price, quantity, created_at) VALUES (:id, :category_id, :name, :description, :price, :quantity, :created_at)";
     private static final String FIND_ALL_SQL = "SELECT * FROM items";
     private static final String FIND_BY_ID_SQL = "SELECT * FROM items WHERE id = :id";
     private static final String DELETE_ALL_SQL = "DELETE FROM items";
