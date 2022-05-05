@@ -17,7 +17,6 @@ public class ItemApiController {
 
     @GetMapping("/api/v1/items")
     List<Item> loadAllItems(){
-        log.info("isCalled");
         return itemRepository.findAll();
     }
 
