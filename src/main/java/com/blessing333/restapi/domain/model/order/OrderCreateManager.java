@@ -1,6 +1,8 @@
 package com.blessing333.restapi.domain.model.order;
 
 import com.blessing333.restapi.domain.application.commands.OrderItemCommand;
+import com.blessing333.restapi.domain.model.order.exception.ItemNotFoundException;
+import com.blessing333.restapi.domain.model.order.exception.OrderCreateFailException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -19,13 +21,20 @@ public class OrderCreateManager {
         UUID orderId = UUID.randomUUID();
         Order order = new Order(orderId,buyerId,OrderStatus.ACCEPTED, LocalDateTime.now());
         orderRepository.save(order);
-
         for(var itemCommand : items){
-            UUID id = UUID.randomUUID();
-            UUID itemId = itemCommand.getItemId();
-            Item found = itemRepository.findById(itemId);
-            orderItemRepository.save(new OrderItem(id,orderId,itemId,itemCommand.getItemCount() * found.getPrice(),itemCommand.getItemCount()));
+            createOrderItem(itemCommand,orderId);
         }
         return order;
+    }
+
+    private void createOrderItem(OrderItemCommand command,UUID orderId){
+        try {
+            UUID id = UUID.randomUUID();
+            UUID itemId = command.getItemId();
+            Item found = itemRepository.findById(itemId);
+            orderItemRepository.save(new OrderItem(id, orderId, itemId, command.getItemCount() * found.getPrice(), command.getItemCount()));
+        } catch (ItemNotFoundException e){
+            throw new OrderCreateFailException(e);
+        }
     }
 }

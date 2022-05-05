@@ -47,6 +47,11 @@ public class TestDataManager {
         itemRepository.save(item);
     }
 
+    public void insertNewCustomer(UUID customerId,String name){
+        Customer customer = new Customer(customerId,name,"test@email","default address",LocalDateTime.now());
+        customerRepository.save(customer);
+    }
+
     public void deleteAllData(){
         orderRepository.deleteAll();
         orderItemRepository.deleteAll();

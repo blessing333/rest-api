@@ -3,7 +3,7 @@ package com.blessing333.restapi.infra.repository;
 import com.blessing333.restapi.domain.model.category.Category;
 import com.blessing333.restapi.domain.model.category.CategoryRepository;
 import com.blessing333.restapi.domain.model.order.Item;
-import com.blessing333.restapi.domain.model.order.ItemNotFoundException;
+import com.blessing333.restapi.domain.model.order.exception.ItemNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

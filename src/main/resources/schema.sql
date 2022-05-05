@@ -1,3 +1,7 @@
+drop table if exists order_items;
+drop table if exists orders;
+drop table if exists items;
+drop table if exists customers;
 drop table if exists categories;
 CREATE TABLE categories
 (
@@ -5,7 +9,7 @@ CREATE TABLE categories
     name VARCHAR(20) NOT NULL UNIQUE
 );
 
-drop table if exists customers;
+
 CREATE TABLE customers
 (
     id   BINARY(16) PRIMARY KEY,
@@ -15,7 +19,7 @@ CREATE TABLE customers
     create_at datetime(6)  NOT NULL
 );
 
-drop table if exists items;
+
 CREATE TABLE items
 (
     id   BINARY(16) PRIMARY KEY,
@@ -29,7 +33,6 @@ CREATE TABLE items
     CONSTRAINT fk_order_items_to_category FOREIGN KEY (category_id) REFERENCES categories (id)
 );
 
-drop table if exists orders;
 CREATE TABLE orders
 (
     id     binary(16) PRIMARY KEY,
@@ -39,7 +42,6 @@ CREATE TABLE orders
     CONSTRAINT fk_orders_to_customers FOREIGN KEY (buyer_id) REFERENCES customers (id)
 );
 
-drop table if exists order_items;
 CREATE TABLE order_items
 (
     id           binary(16)  PRIMARY KEY,
@@ -50,4 +52,3 @@ CREATE TABLE order_items
     CONSTRAINT fk_order_items_to_order FOREIGN KEY (order_id) REFERENCES orders (id) ON DELETE CASCADE,
     CONSTRAINT fk_order_items_to_product FOREIGN KEY (item_id) REFERENCES items (id)
 );
-

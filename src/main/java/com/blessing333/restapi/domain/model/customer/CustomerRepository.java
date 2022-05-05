@@ -5,5 +5,7 @@ import java.util.UUID;
 public interface CustomerRepository {
     UUID save(Customer customer);
 
+    Customer findById(UUID id);
+
     void deleteAll();
 }
