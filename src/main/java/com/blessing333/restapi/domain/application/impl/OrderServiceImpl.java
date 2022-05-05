@@ -15,7 +15,6 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Order createOrder(CreateOrderCommand command) {
         Order createdOrder = orderCreateManager.createOrder(command.getBuyerId(),command.getOrderItems());
-
         //TODO 주문하고나서 주문된 아이템의 수량이 감소해야한다.(이벤트 발행)
         return createdOrder;
     }

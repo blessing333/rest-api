@@ -82,5 +82,4 @@ class JDBCOrderItemRepositoryTest {
         List<OrderItem> found = orderItemRepository.findByOrder(newOrderId);
         assertThat(found).isEmpty();
     }
-
 }
