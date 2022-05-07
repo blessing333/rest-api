@@ -33,7 +33,7 @@ class OrderCreateManagerTest {
 
     @BeforeEach
     void initData() {
-        dataManager.createDefaultData(categoryId,customerId,orderId,itemId,orderItemId);
+        dataManager.insertDefaultDataToDB(categoryId,customerId,orderId,itemId,orderItemId);
     }
 
     @AfterEach

@@ -17,6 +17,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import java.util.List;
 import java.util.UUID;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -40,12 +41,20 @@ class OrderApiControllerTest {
 
     @BeforeEach
     void initDBData(){
-        dataManager.createDefaultData(categoryId,customerId,orderId,itemId,orderItemId);
+        dataManager.insertDefaultDataToDB(categoryId,customerId,orderId,itemId,orderItemId);
     }
 
     @AfterEach
     void deleteAllData(){
         dataManager.deleteAllData();
+    }
+
+    @DisplayName("주문 아이디를 입력받아 주문 상세정보를 반환한다.")
+    @Test
+    void inquiryOrderDetail() throws Exception {
+        mockMvc.perform(get("/api/v1/orders/" + orderId).accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().is2xxSuccessful());
     }
 
     @DisplayName("주문 생성을 요청받으면 주문을 생성하고 생성된 주문 아이디를 반환한다")
@@ -68,7 +77,9 @@ class OrderApiControllerTest {
 
     @DisplayName("주문 아이템에 존재하지 않는 아이템이 포함되어 있으면 OrderCreateFailException 발생")
     @Test
-    void createOrderShouldFail() throws Exception {
+    void
+
+    createOrderShouldFail() throws Exception {
         UUID invalidId = UUID.randomUUID();
         List<OrderItemCommand> orderItemCommands = List.of(new OrderItemCommand(invalidId, 5));
         CreateOrderCommand orderCommand = new CreateOrderCommand(customerId,orderItemCommands);

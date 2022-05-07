@@ -1,8 +1,7 @@
 package com.blessing333.restapi.infra.repository;
 
 import com.blessing333.restapi.domain.model.order.Order;
-import com.blessing333.restapi.domain.model.order.OrderItem;
-import com.blessing333.restapi.domain.model.order.OrderStatus;
+import com.blessing333.restapi.domain.model.order.*;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,6 +17,8 @@ class JDBCOrderItemRepositoryTest {
     private final static UUID itemId = UUID.randomUUID();
     private final static UUID orderId = UUID.randomUUID();
     private final static UUID customerId = UUID.randomUUID();
+    private final static UUID categoryId = UUID.randomUUID();
+
     @Autowired
     JDBCCustomerRepository customerRepository;
     @Autowired
@@ -34,7 +35,7 @@ class JDBCOrderItemRepositoryTest {
 
     @BeforeEach
     void initData() {
-        dataManager.createDefaultData(UUID.randomUUID(),customerId,orderId,itemId,UUID.randomUUID());
+        dataManager.insertDefaultDataToDB(categoryId,customerId,orderId,itemId,UUID.randomUUID());
     }
 
     @AfterEach
@@ -81,5 +82,34 @@ class JDBCOrderItemRepositoryTest {
 
         List<OrderItem> found = orderItemRepository.findByOrder(newOrderId);
         assertThat(found).isEmpty();
+    }
+
+    @DisplayName("orderItem join with Item")
+    @Test
+    void joinTest(){
+        orderItemRepository.deleteAll();
+        UUID id = UUID.randomUUID();
+        UUID secondId = UUID.randomUUID();
+        UUID secondItemId = UUID.randomUUID();
+        Item firstItem = itemRepository.findById(itemId);
+        Item secondItem = Item.createNewItem(secondItemId,categoryId,"second","second",2000,2,LocalDateTime.now());
+        itemRepository.save(secondItem);
+        orderItemRepository.save(new OrderItem(id,orderId,itemId, firstItem.getPrice()*5,5));
+        orderItemRepository.save(new OrderItem(secondId,orderId,secondItemId,secondItem.getPrice()*20,20));
+
+        List<OrderedItem> withItem = orderItemRepository.findWithItemByOrderId(orderId);
+        assertThat(withItem).hasSize(2);
+        OrderedItem firstFound = withItem.get(0);
+        assertThat(firstFound.getItemName()).isEqualTo(firstItem.getName());
+        assertThat(firstFound.getItemPrice()).isEqualTo(firstItem.getPrice());
+        assertThat(firstFound.getItemDescription()).isEqualTo(firstItem.getDescription());
+        assertThat(firstFound.getTotalItemPrice()).isEqualTo(firstItem.getPrice()*5);
+        assertThat(firstFound.getItemCount()).isEqualTo(5);
+        OrderedItem secondFound = withItem.get(1);
+        assertThat(secondFound.getItemName()).isEqualTo(secondItem.getName());
+        assertThat(secondFound.getItemPrice()).isEqualTo(secondItem.getPrice());
+        assertThat(secondFound.getItemDescription()).isEqualTo(secondItem.getDescription());
+        assertThat(secondFound.getTotalItemPrice()).isEqualTo(secondItem.getPrice()*20);
+        assertThat(secondFound.getItemCount()).isEqualTo(20);
     }
 }

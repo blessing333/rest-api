@@ -28,7 +28,7 @@ class OrderServiceImplTest {
 
     @BeforeEach
     void createDefaultData(){
-        testDataManager.createDefaultData(categoryId,customerId,orderId,itemId,orderItemId);
+        testDataManager.insertDefaultDataToDB(categoryId,customerId,orderId,itemId,orderItemId);
     }
 
     @AfterEach

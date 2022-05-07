@@ -8,5 +8,7 @@ public interface OrderItemRepository {
 
     List<OrderItem> findByOrder(UUID orderId);
 
+    List<OrderedItem> findWithItemByOrderId(UUID orderId);
+
     void deleteAll();
 }

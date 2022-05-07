@@ -25,7 +25,7 @@ public class TestDataManager {
     @Autowired
     JDBCCategoryRepository categoryRepository;
 
-    public void createDefaultData(UUID categoryId, UUID customerId, UUID orderId, UUID itemId,UUID orderItemId){
+    public void insertDefaultDataToDB(UUID categoryId, UUID customerId, UUID orderId, UUID itemId, UUID orderItemId){
         Category category = new Category(categoryId, "categoryName");
         categoryRepository.save(category);
 

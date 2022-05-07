@@ -15,5 +15,4 @@ public class OrderItem {
     private final UUID itemId;
     private final long orderPrice;
     private final int itemCount;
-
 }

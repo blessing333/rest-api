@@ -3,7 +3,10 @@ package com.blessing333.restapi.infra.repository;
 import com.blessing333.restapi.domain.model.common.UUIDUtils;
 import com.blessing333.restapi.domain.model.order.OrderItem;
 import com.blessing333.restapi.domain.model.order.OrderItemRepository;
+import com.blessing333.restapi.domain.model.order.OrderedItem;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -24,9 +27,11 @@ public class JDBCOrderItemRepository implements OrderItemRepository {
     private static final String INSERT_SQL = "INSERT INTO order_items(id, order_id, item_id, order_price, item_count) " +
                                              "VALUES (:id, :order_id, :item_id, :order_price, :item_count)";
     private static final String FIND_BY_ORDER_ID_SQL = "SELECT * FROM order_items WHERE order_id = :order_id";
+    private static final String JOIN_WITH_ITEM_SQL = "select * from order_items left join items on order_items.item_id = items.id where order_items.order_id = :order_id";
     private static final String DELETE_ALL_SQL = "delete from order_items";
     private final NamedParameterJdbcTemplate jdbcTemplate;
     private final OrderItemRowMapper rowMapper = new OrderItemRowMapper();
+    private final OrderWithItemMapper orderWithItemMapper = new OrderWithItemMapper();
 
     @Override
     public UUID save(OrderItem orderItem) {
@@ -38,6 +43,13 @@ public class JDBCOrderItemRepository implements OrderItemRepository {
     public List<OrderItem> findByOrder(UUID orderId) {
         Map<String, byte[]> param = Collections.singletonMap(ORDER_ID_COLUMN, UUIDUtils.toBinary(orderId));
         return jdbcTemplate.query(FIND_BY_ORDER_ID_SQL, param, rowMapper);
+    }
+
+    @Override
+    public List<OrderedItem> findWithItemByOrderId(UUID orderId) {
+        return jdbcTemplate.query(JOIN_WITH_ITEM_SQL,
+                Collections.singletonMap(ORDER_ID_COLUMN,UUIDUtils.toBinary(orderId)),
+                orderWithItemMapper);
     }
 
     @Override
@@ -64,6 +76,22 @@ public class JDBCOrderItemRepository implements OrderItemRepository {
             long orderPrice = resultSet.getLong(ORDER_PRICE_COLUMN);
             int orderCount = resultSet.getInt(ITEM_COUNT_COLUMN);
             return new OrderItem(id,orderId,itemId,orderPrice,orderCount);
+        }
+    }
+
+    private static class OrderWithItemMapper implements ResultSetExtractor<List<OrderedItem>>{
+        @Override
+        public List<OrderedItem> extractData(ResultSet rs) throws SQLException, DataAccessException {
+            List<OrderedItem> list = new ArrayList<>();
+            while(rs.next()){
+                String itemName = rs.getString("items.name");
+                String itemDescription = rs.getString("items.description");
+                long itemPrice = rs.getLong("items.price");
+                int itemCount = rs.getInt("order_items.item_count");
+                OrderedItem row = new OrderedItem(itemName,itemDescription,itemPrice,itemCount);
+                list.add(row);
+            }
+            return list;
         }
     }
 }
