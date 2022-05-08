@@ -1,7 +1,7 @@
 package com.blessing333.restapi.api;
 
-import com.blessing333.restapi.domain.model.order.Item;
-import com.blessing333.restapi.domain.model.order.ItemRepository;
+import com.blessing333.restapi.domain.model.item.Item;
+import com.blessing333.restapi.domain.model.item.ItemRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;

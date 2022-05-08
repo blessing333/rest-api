@@ -1,8 +1,8 @@
 package com.blessing333.restapi.domain.application.impl;
 
 import com.blessing333.restapi.domain.application.ItemService;
-import com.blessing333.restapi.domain.model.order.Item;
-import com.blessing333.restapi.domain.model.order.ItemRepository;
+import com.blessing333.restapi.domain.model.item.Item;
+import com.blessing333.restapi.domain.model.item.ItemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

@@ -3,7 +3,7 @@ package com.blessing333.restapi.infra.repository;
 import com.blessing333.restapi.domain.model.category.Category;
 import com.blessing333.restapi.domain.model.category.CategoryNotFoundException;
 import com.blessing333.restapi.domain.model.category.CategoryRepository;
-import com.blessing333.restapi.domain.model.common.UUIDUtils;
+import com.blessing333.restapi.infra.utils.UUIDUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;

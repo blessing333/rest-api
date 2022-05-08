@@ -1,9 +1,9 @@
 package com.blessing333.restapi.infra.repository;
 
-import com.blessing333.restapi.domain.model.common.UUIDUtils;
-import com.blessing333.restapi.domain.model.order.Item;
-import com.blessing333.restapi.domain.model.order.ItemRepository;
+import com.blessing333.restapi.domain.model.item.Item;
+import com.blessing333.restapi.domain.model.item.ItemRepository;
 import com.blessing333.restapi.domain.model.order.exception.ItemNotFoundException;
+import com.blessing333.restapi.infra.utils.UUIDUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;

@@ -1,4 +1,4 @@
-package com.blessing333.restapi.domain.model.common;
+package com.blessing333.restapi.infra.utils;
 
 import lombok.experimental.UtilityClass;
 

@@ -1,7 +1,10 @@
 package com.blessing333.restapi.infra.repository;
 
+import com.blessing333.restapi.domain.model.item.Item;
 import com.blessing333.restapi.domain.model.order.Order;
-import com.blessing333.restapi.domain.model.order.*;
+import com.blessing333.restapi.domain.model.order.OrderItem;
+import com.blessing333.restapi.domain.model.order.OrderStatus;
+import com.blessing333.restapi.domain.model.order.OrderedItem;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

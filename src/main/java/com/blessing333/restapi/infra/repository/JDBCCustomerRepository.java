@@ -1,8 +1,8 @@
 package com.blessing333.restapi.infra.repository;
 
-import com.blessing333.restapi.domain.model.common.UUIDUtils;
 import com.blessing333.restapi.domain.model.customer.Customer;
 import com.blessing333.restapi.domain.model.customer.CustomerRepository;
+import com.blessing333.restapi.infra.utils.UUIDUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;

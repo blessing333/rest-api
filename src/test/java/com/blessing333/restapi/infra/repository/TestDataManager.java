@@ -2,7 +2,7 @@ package com.blessing333.restapi.infra.repository;
 
 import com.blessing333.restapi.domain.model.category.Category;
 import com.blessing333.restapi.domain.model.customer.Customer;
-import com.blessing333.restapi.domain.model.order.Item;
+import com.blessing333.restapi.domain.model.item.Item;
 import com.blessing333.restapi.domain.model.order.Order;
 import com.blessing333.restapi.domain.model.order.OrderItem;
 import com.blessing333.restapi.domain.model.order.OrderStatus;

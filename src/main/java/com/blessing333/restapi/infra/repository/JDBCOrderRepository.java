@@ -1,11 +1,11 @@
 package com.blessing333.restapi.infra.repository;
 
-import com.blessing333.restapi.domain.model.common.UUIDUtils;
 import com.blessing333.restapi.domain.model.order.Order;
 import com.blessing333.restapi.domain.model.order.OrderRepository;
 import com.blessing333.restapi.domain.model.order.OrderStatus;
 import com.blessing333.restapi.domain.model.order.exception.OrderDeleteFailException;
 import com.blessing333.restapi.domain.model.order.exception.OrderNotFoundException;
+import com.blessing333.restapi.infra.utils.UUIDUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;

@@ -1,4 +1,4 @@
-package com.blessing333.restapi.domain.model.order;
+package com.blessing333.restapi.domain.model.item;
 
 import java.util.List;
 import java.util.UUID;

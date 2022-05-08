@@ -1,9 +1,9 @@
 package com.blessing333.restapi.infra.repository;
 
-import com.blessing333.restapi.domain.model.common.UUIDUtils;
 import com.blessing333.restapi.domain.model.order.OrderItem;
 import com.blessing333.restapi.domain.model.order.OrderItemRepository;
 import com.blessing333.restapi.domain.model.order.OrderedItem;
+import com.blessing333.restapi.infra.utils.UUIDUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.ResultSetExtractor;

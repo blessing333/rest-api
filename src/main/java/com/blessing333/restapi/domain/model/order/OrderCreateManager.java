@@ -1,6 +1,8 @@
 package com.blessing333.restapi.domain.model.order;
 
 import com.blessing333.restapi.domain.application.commands.OrderItemCommand;
+import com.blessing333.restapi.domain.model.item.Item;
+import com.blessing333.restapi.domain.model.item.ItemRepository;
 import com.blessing333.restapi.domain.model.order.exception.ItemNotFoundException;
 import com.blessing333.restapi.domain.model.order.exception.OrderCreateFailException;
 import lombok.RequiredArgsConstructor;

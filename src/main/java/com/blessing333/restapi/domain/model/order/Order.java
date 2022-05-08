@@ -8,7 +8,7 @@ import java.util.UUID;
 
 @Getter
 @AllArgsConstructor
-public class Order {
+public class Order{
     private final UUID id;
     private final UUID buyerId;
     private OrderStatus orderStatus;
