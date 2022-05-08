@@ -14,7 +14,7 @@ public class OrderInquiryManager {
         List<OrderedItem> orderedItems = orderItemRepository.findWithItemByOrderId(orderId);
         long orderPrice = 0;
         for (OrderedItem item : orderedItems) {
-            orderPrice = item.getTotalItemPrice();
+            orderPrice += item.getTotalItemPrice();
         }
         return new OrderDetail(orderId,orderedItems,orderPrice);
     }

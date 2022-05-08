@@ -14,8 +14,8 @@ CREATE TABLE customers
 (
     id   BINARY(16) PRIMARY KEY,
     name VARCHAR(20) NOT NULL,
-    email VARCHAR(20) NOT NULL,
-    address VARCHAR(40) NOT NULL,
+    email VARCHAR(40) NOT NULL,
+    address VARCHAR(50) NOT NULL,
     create_at datetime(6)  NOT NULL
 );
 
