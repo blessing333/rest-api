@@ -72,7 +72,7 @@ class OrderApiControllerTest {
                 .andReturn();
         String responseString = result.getResponse().getContentAsString();
         OrderCreateResponse response = mapper.readValue(responseString, OrderCreateResponse.class);
-        Assertions.assertDoesNotThrow(()->orderRepository.findById(UUID.fromString(response.getId())));
+        Assertions.assertDoesNotThrow(()->orderRepository.findById(UUID.fromString(response.getOrderId())));
     }
 
     @DisplayName("주문 아이템에 존재하지 않는 아이템이 포함되어 있으면 OrderCreateFailException 발생")

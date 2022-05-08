@@ -19,5 +19,4 @@ public class ItemApiController {
     List<Item> loadAllItems(){
         return itemRepository.findAll();
     }
-
 }

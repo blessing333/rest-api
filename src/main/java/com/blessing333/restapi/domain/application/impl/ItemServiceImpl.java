@@ -17,6 +17,4 @@ public class ItemServiceImpl implements ItemService {
     public List<Item> loadAllItems() {
         return itemRepository.findAll();
     }
-
-
 }

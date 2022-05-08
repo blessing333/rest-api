@@ -25,7 +25,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public OrderDetail loadOrderData(UUID orderId) {
-        //TODO 주문에 대해 조회할 권한이 있는지 인증 인가 기능 필요
+        //TODO 주문에 대해 조회할 권한이 있는지 인증 기능 필요
         return orderInquiryManager.loadOrderWithItemData(orderId);
     }
 }
